@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ooops.servant.mapper.QuesTimesMapper">
+	<resultMap type="com.ooops.servant.entity.Login" id="BaseResultMap">
+		<result column="ID" property="id"/>
+		<result column="USER_ID" property="userId"/>
+		<result column="QUES_ID" property="quesId"/>
+		<result column="TIMES" property="times"/>
+	</resultMap>
+	
+	<sql id="defaultSelectClause">
+	t1.ID as id,	t1.USER_ID as userId,	t1.QUES_ID as quesId,	t1.TIMES as times	</sql>
+	
+	<select id="selectList" parameterMap="com.ooops.servant.entity.Login" resultMap="BaseResultMap">
+	SELECT 
+		<include refid="defaultSelectClause"/>
+	from QUES_TIMES
+	<include refid="defaultWhereClause"/>
+		
+	</select>
+	
+	<sql id="defaultWhereClause">
+		<trim prefix="where" prefixOverrides="and|or">
+		<if test="id != null">and t.ID = #{id}</if>
+		<if test="userId != null">and t.USER_ID = #{userId}</if>
+		<if test="quesId != null">and t.QUES_ID = #{quesId}</if>
+		<if test="times != null">and t.TIMES = #{times}</if>
+		</trim>
+	</sql>
+	
+</mapper>   

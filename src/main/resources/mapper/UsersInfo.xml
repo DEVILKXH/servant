@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ooops.servant.mapper.UsersInfoMapper">
+	<resultMap type="com.ooops.servant.entity.Login" id="BaseResultMap">
+		<result column="ID" property="id"/>
+		<result column="LOGIN_NAME" property="loginName"/>
+		<result column="NICK_NAME" property="nickName"/>
+		<result column="PASSWORD" property="password"/>
+		<result column="TYPE" property="type"/>
+		<result column="STATUS" property="status"/>
+		<result column="LOGIN_TIME" property="loginTime"/>
+	</resultMap>
+	
+	<sql id="defaultSelectClause">
+	t1.ID as id,	t1.LOGIN_NAME as loginName,	t1.NICK_NAME as nickName,	t1.PASSWORD as password,	t1.TYPE as type,	t1.STATUS as status,	t1.LOGIN_TIME as loginTime	</sql>
+	
+	<select id="selectList" parameterMap="com.ooops.servant.entity.Login" resultMap="BaseResultMap">
+	SELECT 
+		<include refid="defaultSelectClause"/>
+	from USERS_INFO
+	<include refid="defaultWhereClause"/>
+		
+	</select>
+	
+	<sql id="defaultWhereClause">
+		<trim prefix="where" prefixOverrides="and|or">
+		<if test="id != null">and t.ID = #{id}</if>
+		<if test="loginName != null">and t.LOGIN_NAME = #{loginName}</if>
+		<if test="nickName != null">and t.NICK_NAME = #{nickName}</if>
+		<if test="password != null">and t.PASSWORD = #{password}</if>
+		<if test="type != null">and t.TYPE = #{type}</if>
+		<if test="status != null">and t.STATUS = #{status}</if>
+		<if test="loginTime != null">and t.LOGIN_TIME = #{loginTime}</if>
+		</trim>
+	</sql>
+	
+</mapper>   

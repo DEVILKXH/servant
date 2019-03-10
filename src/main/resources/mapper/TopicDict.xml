@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ooops.servant.mapper.TopicDictMapper">
+	<resultMap type="com.ooops.servant.entity.Login" id="BaseResultMap">
+		<result column="ID" property="id"/>
+		<result column="TOPIC_CODE" property="topicCode"/>
+		<result column="TOPIC_NAME" property="topicName"/>
+		<result column="TOPIC_STATUS" property="topicStatus"/>
+		<result column="CREATE_TIME" property="createTime"/>
+	</resultMap>
+	
+	<sql id="defaultSelectClause">
+	t1.ID as id,	t1.TOPIC_CODE as topicCode,	t1.TOPIC_NAME as topicName,	t1.TOPIC_STATUS as topicStatus,	t1.CREATE_TIME as createTime	</sql>
+	
+	<select id="selectList" parameterMap="com.ooops.servant.entity.Login" resultMap="BaseResultMap">
+	SELECT 
+		<include refid="defaultSelectClause"/>
+	from TOPIC_DICT
+	<include refid="defaultWhereClause"/>
+		
+	</select>
+	
+	<sql id="defaultWhereClause">
+		<trim prefix="where" prefixOverrides="and|or">
+		<if test="id != null">and t.ID = #{id}</if>
+		<if test="topicCode != null">and t.TOPIC_CODE = #{topicCode}</if>
+		<if test="topicName != null">and t.TOPIC_NAME = #{topicName}</if>
+		<if test="topicStatus != null">and t.TOPIC_STATUS = #{topicStatus}</if>
+		<if test="createTime != null">and t.CREATE_TIME = #{createTime}</if>
+		</trim>
+	</sql>
+	
+</mapper>   

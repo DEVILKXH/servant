@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ooops.servant.mapper.TopicDetailMapper">
+	<resultMap type="com.ooops.servant.entity.Login" id="BaseResultMap">
+		<result column="ID" property="id"/>
+		<result column="QUES_TITLE" property="quesTitle"/>
+		<result column="QUES_OPTIONS" property="quesOptions"/>
+		<result column="QUEST_ANSWER" property="questAnswer"/>
+		<result column="QUES_DESC" property="quesDesc"/>
+		<result column="QUES_TYPE" property="quesType"/>
+		<result column="TOPIC_ID" property="topicId"/>
+	</resultMap>
+	
+	<sql id="defaultSelectClause">
+	t1.ID as id,	t1.QUES_TITLE as quesTitle,	t1.QUES_OPTIONS as quesOptions,	t1.QUEST_ANSWER as questAnswer,	t1.QUES_DESC as quesDesc,	t1.QUES_TYPE as quesType,	t1.TOPIC_ID as topicId	</sql>
+	
+	<select id="selectList" parameterMap="com.ooops.servant.entity.Login" resultMap="BaseResultMap">
+	SELECT 
+		<include refid="defaultSelectClause"/>
+	from TOPIC_DETAIL
+	<include refid="defaultWhereClause"/>
+		
+	</select>
+	
+	<sql id="defaultWhereClause">
+		<trim prefix="where" prefixOverrides="and|or">
+		<if test="id != null">and t.ID = #{id}</if>
+		<if test="quesTitle != null">and t.QUES_TITLE = #{quesTitle}</if>
+		<if test="quesOptions != null">and t.QUES_OPTIONS = #{quesOptions}</if>
+		<if test="questAnswer != null">and t.QUEST_ANSWER = #{questAnswer}</if>
+		<if test="quesDesc != null">and t.QUES_DESC = #{quesDesc}</if>
+		<if test="quesType != null">and t.QUES_TYPE = #{quesType}</if>
+		<if test="topicId != null">and t.TOPIC_ID = #{topicId}</if>
+		</trim>
+	</sql>
+	
+</mapper>   
