@@ -1,0 +1,79 @@
+.ooops-list{
+	height: 55px;
+}
+
+.ooops-list:before{
+	line-height: 55px;
+}
+.ooops-ques-list{
+	position: relative;
+}
+.am-panel-default{
+	padding: 0 16px;
+}
+.am-panel-default > .ooops-ques-title{
+	background: #fff;
+	border-bottom: 0
+}
+.am-panel-default > .ooops-ques-title:first-child {
+	clear: both
+}
+
+.am-panel-foot{
+	border-top: 1px dotted #ccc;
+	padding: 16px;
+}
+.am-panel-bd p{
+	margin-bottom: 0.8rem;
+}
+.am-panel-bd p span{
+	width: 18px;
+	display: inline-block;
+	margin-right: 12px;
+	font-weight: bold
+}
+
+.am-panel-foot > label{
+	margin-right: 32px;
+}
+.am-panel-foot > label > input{
+	margin-right: 8px
+}
+
+.ooops-ques-title-input, .ooops-ques-option-input{
+	width: 100%;
+	border: 0;
+	border-bottom: 1px solid #ccc;
+	padding: 4px 8px
+}
+.ooops-ques-option-input{
+	width: calc(100% - 64px);
+	width: -webkit-calc(100% - 64px);
+	width: -moz-calc(100% - 64px);
+}
+.am-panel-add-option, .am-panel-add-ques{
+	text-align: center;
+	cursor: pointer;
+	padding: 4px;
+	background: url("/img/optBg.png")
+}
+.am-panel-add-option img{
+	width: 24px;
+}
+.ooops-option-del{
+	cursor: pointer;
+	width: 18px;
+	margin-left: 16px;
+}
+.ooops-ques-del{
+	position: absolute;
+	top: 0;
+	right: 0;
+	width: 24px;
+	height: 20px;
+	cursor: pointer;
+	background: url(/img/delAll.png)
+}
+.ooops-ques-del:hover {
+	background: url(/img/delAll_hover.png)
+}

@@ -3,7 +3,7 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.ooops.servant.mapper.TopicDictMapper">
-	<resultMap type="com.ooops.servant.entity.Login" id="BaseResultMap">
+	<resultMap type="com.ooops.servant.entity.TopicDict" id="BaseResultMap">
 		<result column="ID" property="id"/>
 		<result column="TOPIC_CODE" property="topicCode"/>
 		<result column="TOPIC_NAME" property="topicName"/>
@@ -14,7 +14,7 @@
 	<sql id="defaultSelectClause">
 	t1.ID as id,	t1.TOPIC_CODE as topicCode,	t1.TOPIC_NAME as topicName,	t1.TOPIC_STATUS as topicStatus,	t1.CREATE_TIME as createTime	</sql>
 	
-	<select id="selectList" parameterMap="com.ooops.servant.entity.Login" resultMap="BaseResultMap">
+	<select id="selectList" parameterMap="com.ooops.servant.entity.TopicDict" resultMap="BaseResultMap">
 	SELECT 
 		<include refid="defaultSelectClause"/>
 	from TOPIC_DICT

@@ -3,7 +3,7 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.ooops.servant.mapper.UsersInfoMapper">
-	<resultMap type="com.ooops.servant.entity.Login" id="BaseResultMap">
+	<resultMap type="com.ooops.servant.entity.UsersInfo" id="BaseResultMap">
 		<result column="ID" property="id"/>
 		<result column="LOGIN_NAME" property="loginName"/>
 		<result column="NICK_NAME" property="nickName"/>
@@ -16,7 +16,7 @@
 	<sql id="defaultSelectClause">
 	t1.ID as id,	t1.LOGIN_NAME as loginName,	t1.NICK_NAME as nickName,	t1.PASSWORD as password,	t1.TYPE as type,	t1.STATUS as status,	t1.LOGIN_TIME as loginTime	</sql>
 	
-	<select id="selectList" parameterMap="com.ooops.servant.entity.Login" resultMap="BaseResultMap">
+	<select id="selectList" parameterMap="com.ooops.servant.entity.UsersInfo" resultMap="BaseResultMap">
 	SELECT 
 		<include refid="defaultSelectClause"/>
 	from USERS_INFO

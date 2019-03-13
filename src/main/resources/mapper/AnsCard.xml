@@ -3,7 +3,7 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.ooops.servant.mapper.AnsCardMapper">
-	<resultMap type="com.ooops.servant.entity.Login" id="BaseResultMap">
+	<resultMap type="com.ooops.servant.entity.AnsCard" id="BaseResultMap">
 		<result column="ID" property="id"/>
 		<result column="ANS_TITLE" property="ansTitle"/>
 		<result column="ANS_OPTION" property="ansOption"/>
@@ -19,7 +19,7 @@
 	<sql id="defaultSelectClause">
 	t1.ID as id,	t1.ANS_TITLE as ansTitle,	t1.ANS_OPTION as ansOption,	t1.ANS_ANSWER as ansAnswer,	t1.ANS_MY_ANSWER as ansMyAnswer,	t1.ANS_DESP as ansDesp,	t1.ANS_TYPE as ansType,	t1.TOPIC_DICT_ID as topicDictId,	t1.TOPIC_MAIN_ID as topicMainId,	t1.ANS_ID as ansId	</sql>
 	
-	<select id="selectList" parameterMap="com.ooops.servant.entity.Login" resultMap="BaseResultMap">
+	<select id="selectList" parameterMap="com.ooops.servant.entity.AnsCard" resultMap="BaseResultMap">
 	SELECT 
 		<include refid="defaultSelectClause"/>
 	from ANS_CARD

@@ -22,6 +22,11 @@ public class LoginController extends BaseController<UsersInfo, UsersInfoService>
 	@Autowired
 	private HttpSession session;
 	
+	@RequestMapping(value = {"/index",""})
+	public String index() {
+		return Constant.INDEX;
+	}
+	
 	@RequestMapping(value = {"/login",""})
 	public String login() {
 		if(session.getAttribute(Constant.USER_KEY) == null){
