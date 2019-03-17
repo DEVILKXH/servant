@@ -11,9 +11,9 @@ $(function(){
 	
 	$(".tpl-content-wrapper").on('click', '.am-panel-add-option', function(){
 		var $this = $(this);
-		var $body = $this.prev(".am-panel-bd");
+		var $body = $this.closest(".ooops-ques-list").find(".am-panel-bd");
 		var length = $body.find("span").length;
-		var html = "<p><span>"+ options[length] +".</span><input type='hidden' value='"+ options[length] +"' class='option-value'><input type='text' value='' placeholder='请输入选项内容' class='ooops-ques-option-input' /><img src='/img/delete.png' width='24' class='ooops-option-del'/></p>";
+		var html = "<p class='ooops-options'><span>"+ options[length] +".</span><input type='hidden' value='"+ options[length] +"' class='option-value'><input type='text' value='' placeholder='请输入选项内容' class='ooops-ques-option-input option-text' /><img src='/img/delete.png' width='24' class='ooops-option-del'/></p>";
 		$body.append(html)
 	});
 	
@@ -37,10 +37,19 @@ $(function(){
 		var html = '<div class="am-panel am-panel-default ooops-ques-list">' +
 					'<div class="ooops-ques-del"></div>' +
 				   	'<div class="am-panel-hd ooops-ques-title">' +
-				  	'	<input type="text" placeholder="请输入题目" class="ooops-ques-title-input">' +
+				  	'	<input type="text" placeholder="请输入题目" class="ooops-ques-title-input form-data" name="quesTitle">' +
 				  	'</div>' +
 				  	'<div class="am-panel-bd">' +
+				  	'<p class="ooops-options"><span>A.</span><input type="hidden" value="A" class="option-value"><input type="text" value="" placeholder="请输入选项内容" class="ooops-ques-option-input option-text" /><img src="/img/delete.png" width="24" class="ooops-option-del"/></p>' + 
 				  	'</div>' +
+				  	'<div class="am-panel-foot-answer">' +
+			  		'<span class="ques-answer-lab">答案: </span>' +
+			  		'<input type="text" class="ooops-ques-answer-input form-data" placeholder="请输入正确答案" name="quesAnswer" />' +
+				  	'</div>' + 
+				  	'<div class="am-panel-foot-answer">' +
+			  		'<span class="ques-answer-lab">解析: </span>' +
+			  		'<textarea class="ooops-ques-answer-area form-data" placeholder="请输入正确解析" name="quesDesc" ></textarea>' +
+				  	'</div>' + 
 				  	'<div class="am-panel-add-option">' +
 				  	'	<img src="/img/add.png">' +
 				  	'</div>' +

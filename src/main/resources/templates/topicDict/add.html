@@ -1,0 +1,119 @@
+<html lang="en" class="js cssanimations">
+
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<title>Amaze UI Admin index Examples</title>
+		<meta name="description" content="这是一个 index 页面">
+		<meta name="keywords" content="index">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="renderer" content="webkit">
+		<meta http-equiv="Cache-Control" content="no-siteapp">
+		<link rel="icon" type="image/png" href="assets/i/favicon.png">
+		<link rel="apple-touch-icon-precomposed" href="assets/i/app-icon72x72@2x.png">
+		<meta name="apple-mobile-web-app-title" content="Amaze UI">
+		<link rel="stylesheet" href="/css/amazeui.min.css">
+		<link rel="stylesheet" href="/css/app.css">
+		<link rel="stylesheet" href="/css/index.css">
+		<script src="/js/jquery-3.3.1.min.js"></script>
+		<script src="/js/util.js"></script>
+	</head>
+
+	<body data-type="index" class="theme-white" style="">
+		<div class="am-g tpl-g">
+			<header id="header">
+			</header>
+			<div class="left-sidebar" id="left-sidebar">
+				
+			</div>
+			<div class="tpl-content-wrapper">
+				<div class="ooops-theme-white-bg clear-both ooops-edit">
+					<button type="button" class="am-btn am-btn-primary ooops-radius" onclick="submitForm()">保存</button>
+				</div>
+				<div class="am-panel am-panel-default ooops-ques-list">
+				  	<div class='ooops-ques-del'></div>
+				  	<div class="am-panel-hd ooops-ques-title">
+				  		<input type="text" placeholder="请输入题目" name="quesTitle" class="ooops-ques-title-input form-data">
+				  	</div>
+				  	<div class="am-panel-bd">
+				  	 	<p class="ooops-options">
+					  	 	<span>A.</span><input type='hidden' value='A' class='option-value'><input type='text' value='' placeholder='请输入选项内容' class='ooops-ques-option-input option-text' /><img src='/img/delete.png' width='24' class='ooops-option-del'/>
+				  	 	</p>
+				  	</div>
+				  	<div class="am-panel-foot-answer">
+				  		<span class="ques-answer-lab">答案: </span>
+				  		<input type="text" class="ooops-ques-answer-input form-data" name="quesAnswer" placeholder="请输入正确答案" />
+				  	</div>
+				  	<div class="am-panel-foot-answer">
+				  		<span class="ques-answer-lab">解析: </span>
+				  		<textarea class="ooops-ques-answer-area form-data" placeholder="请输入解析" name="quesDesc"></textarea>
+				  	</div>
+				  	<div class="am-panel-add-option">
+				  		<img src="/img/add.png">
+				  	</div>
+				</div>
+				<div class="am-panel-add-ques">
+					<img src="/img/add.png">
+				</div>
+			</div>
+		</div>
+		<script>
+			$("#header").load("/html/header.html?v=" + new Date().getTime());
+			$("#left-sidebar").load("/html/nav.html?v=" + new Date().getTime());
+		</script>
+		<script type="text/javascript">
+			var href = window.location.href;
+			var param = href.split("?")[1];
+			var topicCode = "";
+			if(!isNull(param)){
+				var params = param.split("&");
+				$(params).each(function(i, item){
+					var key = item.split("=")[0];
+					var value = item.split("=")[1];
+					if(key == "topicCode"){
+						topicCode = value;
+					}
+				});
+			}
+			
+			function submitForm(){
+				var datas = [];
+				$(".ooops-ques-list").each(function(i, item){
+					var $this = $(item);
+					var data = {};
+					$this.find(".form-data").each(function(j, param){
+						var name = $(param).attr("name");
+						var value = $(param).val();
+						data[name] = value;
+					});
+					var options = [];
+					$this.find(".ooops-options").each(function(i, param){
+						var value = $(param).find(".option-value").val();
+						var text = $(param).find(".option-text").val();
+						options.push(value+"/"+text);
+					});
+					
+					data["quesOptions"] = options.join("@");
+					data["topicId"] = topicCode;
+					datas.push(data);
+				});
+				console.log(datas);
+				
+				$post({
+					url: "/topicDetail/saveList.do",
+					data: datas,
+					callback: function(ajax){
+						if(ajax.status == 200){
+							window.location.href = "/topicDict/index?topicCode=" + topicCode;
+						}
+						console.log(ajax.status);
+					}
+				})
+			}
+		</script>
+		<script src="/js/amazeui.min.js"></script>
+		<script src="/js/app.js"></script>
+		<script src="/js/index.js"></script>
+	</body>
+
+</html>

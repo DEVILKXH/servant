@@ -13,7 +13,7 @@
 	<sql id="defaultSelectClause">
 	t1.ID as id,	t1.USER_ID as userId,	t1.QUES_ID as quesId,	t1.TIMES as times	</sql>
 	
-	<select id="selectList" parameterMap="com.ooops.servant.entity.QuesTimes" resultMap="BaseResultMap">
+	<select id="selectList" parameterType="com.ooops.servant.entity.QuesTimes" resultMap="BaseResultMap">
 	SELECT 
 		<include refid="defaultSelectClause"/>
 	from QUES_TIMES

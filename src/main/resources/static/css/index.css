@@ -1,9 +1,14 @@
 .ooops-list{
 	height: 55px;
 }
-
+.clear-both{
+	clear: both;
+}
 .ooops-list:before{
 	line-height: 55px;
+}
+.ooops-radius{
+	border-radius: 4px
 }
 .ooops-ques-list{
 	position: relative;
@@ -14,9 +19,6 @@
 .am-panel-default > .ooops-ques-title{
 	background: #fff;
 	border-bottom: 0
-}
-.am-panel-default > .ooops-ques-title:first-child {
-	clear: both
 }
 
 .am-panel-foot{
@@ -76,4 +78,43 @@
 }
 .ooops-ques-del:hover {
 	background: url(/img/delAll_hover.png)
+}
+
+.ooops-theme-white-bg{
+	background: #fff;
+}
+
+.ooops-edit{
+	padding: 8px 16px;
+	margin-left: 1px;
+	top: -14px;
+    position: relative;
+}
+.ooops-data-list{
+	display: none;
+}
+
+.ooops-ques-answer-area{
+	padding: 4px 8px;
+	width: calc(100% - 55px);
+	width: -webkit-calc(100% - 55px);
+	width: -moz-calc(100% - 55px);
+}
+
+.ooops-ques-answer-input{
+	border: 0;
+	border-bottom: 1px solid #ccc;
+	padding: 4px 8px;
+	width: calc(100% - 55px);
+	width: -webkit-calc(100% - 55px);
+	width: -moz-calc(100% - 55px);
+}
+
+.ques-answer-lab{
+	width: 50px;
+	display: inline-block;
+}
+
+.am-panel-foot-answer{
+	padding: 8px;
 }

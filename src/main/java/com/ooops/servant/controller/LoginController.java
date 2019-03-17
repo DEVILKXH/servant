@@ -47,8 +47,10 @@ public class LoginController extends BaseController<UsersInfo, UsersInfoService>
 	@ResponseBody
 	public AjaxResult<UsersInfo> doLogin(@RequestBody UsersInfo user){
 		AjaxResult<UsersInfo> ajax = new AjaxResult<>();
-		user.setId(user.getId().toUpperCase());
-		UsersInfo myUser = service.selectByPrimaryKey(user.getId());
+//		user.setId(user.getId().toUpperCase());
+		UsersInfo _user = new UsersInfo();
+		_user.setLoginName(user.getLoginName());
+		UsersInfo myUser = service.selectOne(_user);
 		if(null == myUser || !myUser.getPassword().equals(user.getPassword())) {
 			ajax.setStatus("404");
 			ajax.setMessage("账号或密码错误");

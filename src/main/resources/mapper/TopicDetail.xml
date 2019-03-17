@@ -7,19 +7,27 @@
 		<result column="ID" property="id"/>
 		<result column="QUES_TITLE" property="quesTitle"/>
 		<result column="QUES_OPTIONS" property="quesOptions"/>
-		<result column="QUEST_ANSWER" property="questAnswer"/>
+		<result column="QUES_ANSWER" property="quesAnswer"/>
 		<result column="QUES_DESC" property="quesDesc"/>
 		<result column="QUES_TYPE" property="quesType"/>
 		<result column="TOPIC_ID" property="topicId"/>
 	</resultMap>
 	
 	<sql id="defaultSelectClause">
-	t1.ID as id,	t1.QUES_TITLE as quesTitle,	t1.QUES_OPTIONS as quesOptions,	t1.QUEST_ANSWER as questAnswer,	t1.QUES_DESC as quesDesc,	t1.QUES_TYPE as quesType,	t1.TOPIC_ID as topicId	</sql>
+	t1.ID,	t1.QUES_TITLE,	t1.QUES_OPTIONS ,	t1.QUES_ANSWER ,	t1.QUES_DESC,	t1.QUES_TYPE,	t1.TOPIC_ID	</sql>
 	
-	<select id="selectList" parameterMap="com.ooops.servant.entity.TopicDetail" resultMap="BaseResultMap">
+	<select id="selectRandList" resultMap="BaseResultMap">
+		SELECT 
+		<include refid="defaultSelectClause"/> 
+		FROM topic_detail t1
+		<include refid="defaultWhereClause2"/>
+		ORDER BY  RAND() limit 0, #{size}
+	</select>
+	
+	<select id="selectList" parameterType="com.ooops.servant.entity.TopicDetail" resultMap="BaseResultMap">
 	SELECT 
 		<include refid="defaultSelectClause"/>
-	from TOPIC_DETAIL
+	from topic_detail t1
 	<include refid="defaultWhereClause"/>
 		
 	</select>
@@ -29,10 +37,22 @@
 		<if test="id != null">and t.ID = #{id}</if>
 		<if test="quesTitle != null">and t.QUES_TITLE = #{quesTitle}</if>
 		<if test="quesOptions != null">and t.QUES_OPTIONS = #{quesOptions}</if>
-		<if test="questAnswer != null">and t.QUEST_ANSWER = #{questAnswer}</if>
+		<if test="quesAnswer != null">and t.QUES_ANSWER = #{quesAnswer}</if>
 		<if test="quesDesc != null">and t.QUES_DESC = #{quesDesc}</if>
 		<if test="quesType != null">and t.QUES_TYPE = #{quesType}</if>
 		<if test="topicId != null">and t.TOPIC_ID = #{topicId}</if>
+		</trim>
+	</sql>
+	
+	<sql id="defaultWhereClause2">
+		<trim prefix="where" prefixOverrides="and|or">
+		<if test="topicDetail.id != null">and t1.ID = #{topicDetail.id}</if>
+		<if test="topicDetail.quesTitle != null">and t1.QUES_TITLE = #{topicDetail.quesTitle}</if>
+		<if test="topicDetail.quesOptions != null">and t1.QUES_OPTIONS = #{topicDetail.quesOptions}</if>
+		<if test="topicDetail.quesAnswer != null">and t1.QUES_ANSWER = #{topicDetail.quesAnswer}</if>
+		<if test="topicDetail.quesDesc != null">and t1.QUES_DESC = #{topicDetail.quesDesc}</if>
+		<if test="topicDetail.quesType != null">and t1.QUES_TYPE = #{topicDetail.quesType}</if>
+		<if test="topicDetail.topicId != null">and t1.TOPIC_ID = #{topicDetail.topicId}</if>
 		</trim>
 	</sql>
 	

@@ -16,7 +16,7 @@
 	<sql id="defaultSelectClause">
 	t1.ID as id,	t1.LOGIN_NAME as loginName,	t1.NICK_NAME as nickName,	t1.PASSWORD as password,	t1.TYPE as type,	t1.STATUS as status,	t1.LOGIN_TIME as loginTime	</sql>
 	
-	<select id="selectList" parameterMap="com.ooops.servant.entity.UsersInfo" resultMap="BaseResultMap">
+	<select id="selectList" parameterType="com.ooops.servant.entity.UsersInfo" resultMap="BaseResultMap">
 	SELECT 
 		<include refid="defaultSelectClause"/>
 	from USERS_INFO

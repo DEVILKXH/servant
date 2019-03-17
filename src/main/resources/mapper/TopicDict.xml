@@ -14,7 +14,7 @@
 	<sql id="defaultSelectClause">
 	t1.ID as id,	t1.TOPIC_CODE as topicCode,	t1.TOPIC_NAME as topicName,	t1.TOPIC_STATUS as topicStatus,	t1.CREATE_TIME as createTime	</sql>
 	
-	<select id="selectList" parameterMap="com.ooops.servant.entity.TopicDict" resultMap="BaseResultMap">
+	<select id="selectList" parameterType="com.ooops.servant.entity.TopicDict" resultMap="BaseResultMap">
 	SELECT 
 		<include refid="defaultSelectClause"/>
 	from TOPIC_DICT

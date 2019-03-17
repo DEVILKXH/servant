@@ -9,17 +9,38 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<meta name="renderer" content="webkit">
 		<meta http-equiv="Cache-Control" content="no-siteapp">
-		<link rel="icon" type="image/png" href="assets/i/favicon.png">
-		<link rel="apple-touch-icon-precomposed" href="assets/i/app-icon72x72@2x.png">
+		<link rel="icon" type="image/png" href="#">
+		<link rel="apple-touch-icon-precomposed" href="#">
 		<meta name="apple-mobile-web-app-title" content="Amaze UI">
 		<link rel="stylesheet" href="css/amazeui.min.css">
-		<link rel="stylesheet" href="css/amazeui.datatables.min.css">
 		<link rel="stylesheet" href="css/app.css">
 		<script src="js/jquery-3.3.1.min.js"></script>
+		<script src="js/util.js"></script>
+		<script type="text/javascript">
+			$(function(){
+				$(".tpl-login-btn").click(function(){
+					var username = $("#user-name").val();
+					var password = $("#user-password").val();
+					var data = {
+						loginName: username,
+						password: password
+					}
+					$post({
+						url: '/doLogin',
+						data: data,
+						callback: function(response){
+							console.log(response);
+							if(response.status = 200){
+								window.location.href = "/index"
+							}
+						}
+					})
+				});
+			});
+		</script>
 	</head>
 
 	<body data-type="login" class="theme-white" style="">
-		<script src="assets/js/theme.js"></script>
 		<div class="am-g tpl-g">
 			<div class="tpl-login">
 				<div class="tpl-login-content">
@@ -30,7 +51,7 @@
 							<input type="text" class="tpl-form-input" id="user-name" placeholder="请输入账号">
 						</div>
 						<div class="am-form-group">
-							<input type="password" class="tpl-form-input" id="user-name" placeholder="请输入密码">
+							<input type="password" class="tpl-form-input" id="user-password" placeholder="请输入密码">
 						</div>
 						<div class="am-form-group tpl-login-remember-me">
 							<input id="remember-me" type="checkbox">
@@ -43,8 +64,8 @@
 				</div>
 			</div>
 		</div>
-		<script src="http://cdn.bootcss.com/amazeui/2.7.2/js/amazeui.min.js"></script>
-		<script src="assets/js/app.js"></script>
+		<script src="js/amazeui.min.js"></script>
+		<script src="js/app.js"></script>
 
 	</body>
 
