@@ -7,12 +7,13 @@
 		<result column="ID" property="id"/>
 		<result column="TEST_TITLE" property="testTitle"/>
 		<result column="TEST_CREATOR_ID" property="testCreatorId"/>
+		<result column="TEST_TYPE" property="testType"/>
 		<result column="CREATR_TIME" property="creatrTime"/>
 		<result column="UPDATE_TIME" property="updateTime"/>
 	</resultMap>
 	
 	<sql id="defaultSelectClause">
-	t1.ID as id,	t1.TEST_TITLE as testTitle,	t1.TEST_CREATOR_ID as testCreatorId,	t1.CREATR_TIME as creatrTime,	t1.UPDATE_TIME as updateTime	</sql>
+	t1.ID,	t1.TEST_TITLE, t1.TEST_TYPE,	t1.TEST_CREATOR_ID,	t1.CREATR_TIME,	t1.UPDATE_TIME	</sql>
 	
 	<select id="selectList" parameterType="com.ooops.servant.entity.TopicMain" resultMap="BaseResultMap">
 	SELECT 
@@ -26,6 +27,7 @@
 		<trim prefix="where" prefixOverrides="and|or">
 		<if test="id != null">and t.ID = #{id}</if>
 		<if test="testTitle != null">and t.TEST_TITLE = #{testTitle}</if>
+		<if test="testType != null">and t.TEST_TYPE = #{testType}</if>
 		<if test="testCreatorId != null">and t.TEST_CREATOR_ID = #{testCreatorId}</if>
 		<if test="creatrTime != null">and t.CREATR_TIME = #{creatrTime}</if>
 		<if test="updateTime != null">and t.UPDATE_TIME = #{updateTime}</if>

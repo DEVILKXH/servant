@@ -9,6 +9,8 @@ import com.core.extend.base.service.BaseService;
 public interface TopicMainService extends BaseService<TopicMain>{
 
 	TopicMainVo getTopicMain(TopicDict topicDict);
+
+	TopicMainVo checkTopicMain(TopicMainVo vo);
 	
 }
 

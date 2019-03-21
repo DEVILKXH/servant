@@ -1,6 +1,5 @@
 package com.ooops.servant.services.impl;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -38,20 +37,21 @@ public class TopicMainServiceImpl extends BaseServiceImpl<TopicMain, TopicMainMa
 	
 	@Override
 	public TopicMainVo getTopicMain(TopicDict topicDict) {
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+//		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		TopicDetail topicDetail = new TopicDetail();
 		int size = 8;
-		String title = "的测试";
+		String title = "测试";
+		TopicMain main = new TopicMain();
 		if(null != topicDict && StringUtil.isNotNull(topicDict.getTopicCode())){
 			TopicDict dict = topicDictService.selectOne(topicDict);
 			topicDetail.setTopicId(dict.getId());
 			size = 4;
 			title = dict.getTopicName() + "的专项测试";
+			main.setTestType(topicDict.getTopicCode());
 		}
 		List<TopicDetail> detail = topicDetailService.selectRandList(topicDetail, size);
-		TopicMain main = new TopicMain();
 		main.setId(UUID.randomUUID().toString());
-		main.setTestTitle(sdf.format(new Date()) + title);
+		main.setTestTitle(title);
 		main.setCreatrTime(new Date());
 		
 		mapper.insertSelective(main);
@@ -68,7 +68,8 @@ public class TopicMainServiceImpl extends BaseServiceImpl<TopicMain, TopicMainMa
 		vo.setId(main.getId());
 		vo.setTestTitle(main.getTestTitle());
 		vo.setCreatrTime(main.getCreatrTime());
-		
+		vo.setCreatrTime(main.getCreatrTime());
+		vo.setTestType(main.getTestType());
 		vo.setDetail(ansCards);
 		return vo;
 	}
@@ -84,6 +85,19 @@ public class TopicMainServiceImpl extends BaseServiceImpl<TopicMain, TopicMainMa
 		ansCard.setTopicDictId(d.getTopicId());
 		ansCard.setTopicMainId(main.getId());
 		return ansCard;
+	}
+
+	@Override
+	public TopicMainVo checkTopicMain(TopicMainVo vo) {
+		String id = vo.getId();
+		TopicMain main = new TopicMain();
+		main.setId(id);
+		main.setUpdateTime(new Date());
+		mapper.updateByPrimaryKeySelective(main);
+		for(AnsCard ans: vo.getDetail()) {
+			ansCardService.updateByPrimaryKeySelective(ans);
+		}
+		return vo;
 	}
 
 }

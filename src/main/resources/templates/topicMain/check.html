@@ -1,0 +1,133 @@
+<html lang="en" class="js cssanimations">
+
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<title>Amaze UI Admin index Examples</title>
+		<meta name="description" content="这是一个 index 页面">
+		<meta name="keywords" content="index">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="renderer" content="webkit">
+		<meta http-equiv="Cache-Control" content="no-siteapp">
+		<link rel="icon" type="image/png" href="assets/i/favicon.png">
+		<link rel="apple-touch-icon-precomposed" href="assets/i/app-icon72x72@2x.png">
+		<meta name="apple-mobile-web-app-title" content="Amaze UI">
+		<link rel="stylesheet" href="/css/amazeui.min.css">
+		<link rel="stylesheet" href="/css/app.css">
+		<link rel="stylesheet" href="/css/index.css">
+		<script src="/js/jquery-3.3.1.min.js"></script>
+		<script src="/js/util.js"></script>
+		<script src="/js/index.js"></script>
+	</head>
+
+	<body data-type="index" class="theme-white" style="">
+		<div class="am-g tpl-g">
+			<header id="header">
+			</header>
+			<div class="left-sidebar" id="left-sidebar">
+				
+			</div>
+			<div class="tpl-content-wrapper">
+				<div class="am-panel am-panel-default topic-main">
+				    <input type="hidden" name="id" value="">
+				    <input type="hidden" name="testTitle" value="">
+				    <input type="hidden" name="testType" value="">
+				    <input type="hidden" name="creatrTime" value="">
+				    <div class="am-panel-bd topic-main-header">
+				    	<span class='topic-title ooops-ellipsis'></span>
+				    	<span class='ooops-date-time'></span>
+						<button type="button" class="am-btn am-btn-primary ooops-submit">提交</button>
+				    </div>
+				</div>
+			</div>
+		</div>
+		<script>
+			$("#header").load("/html/header.html?v=" + new Date().getTime());
+			$("#left-sidebar").load("/html/nav.html?v=" + new Date().getTime());
+		</script>
+		<script>
+			var href = window.location.href;
+			var param = href.split("?")[1];
+			var id = "";
+			if(!isNull(param)){
+				var params = param.split("&");
+				$(params).each(function(i, item){
+					var key = item.split("=")[0];
+					var value = item.split("=")[1];
+					if(key == "id"){
+						id = value;
+					}
+				});
+			}
+			
+			function getClassName(value, answer, myAnswer){
+				if(value == answer){
+					return "success";
+				}
+				if(value == myAnswer){
+					return "error";
+				}
+			}
+			
+			$(function(){
+				var progress = $.AMUI.progress;
+				progress.start();
+				var url = '/topicMain/getTopicMainById.do?id=' + id;
+				$.ajax({
+					url: url,
+					success:function(ajax){
+						var title = ajax.testTitle;
+						var id = ajax.id;
+						var creatrTime = ajax.creatrTime;
+						var type = ajax.testType;
+						var detail = ajax.detail;
+						
+						$(".topic-main input[name=id]").val(id);
+						$(".topic-main input[name=testTitle]").val(title);
+						$(".topic-main input[name=creatrTime]").val(creatrTime);
+						$(".topic-main input[name=testType]").val(type);
+					
+						$(".topic-title").text(title);
+						$(".ooops-date-time").text(creatrTime);
+						
+						$(detail).each(function(i, item){
+							var html = '<div class="am-panel am-panel-default ooops-ans-card">' + 
+								'<input type="hidden" name="id" value="{{id}}">' +
+							  	'<div class="am-panel-hd ooops-ques-title">' + 
+							  		'<span>{{title}}</span>' + 
+							  	'</div>' + 
+							  	'<div class="am-panel-bd ans-answer-card">' + 
+							  	'{{texts}}' +
+							  	'</div>' + 
+							'</div>';
+							
+							var title = (i + 1) + ". " + item.ansTitle;
+							var ansOption = item.ansOption;
+							var ansOptions = ansOption.split("@");
+							var texts = "";
+							var ansMyAnswer = item.ansMyAnswer;
+							var ansAnswer = item.ansAnswer;
+							var dId = item.id;
+							$(ansOptions).each(function(j, jtem){
+								var text = jtem.split("/")[1];
+								var value = jtem.split("/")[0];
+								var classname = getClassName(value, ansAnswer, ansMyAnswer);
+								texts += ("<p class="+ classname +"><span>"+ value +".</span>"+ text +"</p>");
+							});
+							
+							var myHtml = html.replace(/{{title}}/, title);
+							myHtml = myHtml.replace(/{{texts}}/, texts);
+							myHtml = myHtml.replace(/{{id}}/, dId);
+							
+							$(".tpl-content-wrapper").append(myHtml);
+						});
+						progress.done();
+					}
+				});
+			});
+		</script>
+		<script src="/js/amazeui.min.js"></script>
+		<script src="/js/app.js"></script>
+	</body>
+
+</html>

@@ -1,14 +1,12 @@
 /**
  * 
  */
-
+var options = {
+	0: 'A', 1: 'B', 2: 'C', 
+	3: 'D', 4: 'E', 5: 'F', 
+	6: 'G', 7: 'H', 8: 'I', 9: 'J'
+}
 $(function(){
-	var options = {
-		0: 'A', 1: 'B', 2: 'C', 
-		3: 'D', 4: 'E', 5: 'F', 
-		6: 'G', 7: 'H', 8: 'I', 9: 'J'
-	}
-	
 	$(".tpl-content-wrapper").on('click', '.am-panel-add-option', function(){
 		var $this = $(this);
 		var $body = $this.closest(".ooops-ques-list").find(".am-panel-bd");
