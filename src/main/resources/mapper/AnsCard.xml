@@ -14,10 +14,12 @@
 		<result column="TOPIC_DICT_ID" property="topicDictId"/>
 		<result column="TOPIC_MAIN_ID" property="topicMainId"/>
 		<result column="ANS_ID" property="ansId"/>
+		<result column="ANS_INDEX" property="ansIndex"/>
 	</resultMap>
 	
 	<sql id="defaultSelectClause">
-	t1.ID as id,	t1.ANS_TITLE as ansTitle,	t1.ANS_OPTION as ansOption,	t1.ANS_ANSWER as ansAnswer,	t1.ANS_MY_ANSWER as ansMyAnswer,	t1.ANS_DESP as ansDesp,	t1.ANS_TYPE as ansType,	t1.TOPIC_DICT_ID as topicDictId,	t1.TOPIC_MAIN_ID as topicMainId,	t1.ANS_ID as ansId	</sql>
+	t1.ID,	t1.ANS_TITLE,	t1.ANS_OPTION,	t1.ANS_ANSWER,	t1.ANS_MY_ANSWER,	t1.ANS_DESP,	t1.ANS_TYPE,	t1.TOPIC_DICT_ID,	t1.TOPIC_MAIN_ID ,	t1.ANS_ID, t1.ANS_INDEX	
+	</sql>
 	
 	<select id="selectList" parameterType="com.ooops.servant.entity.AnsCard" resultMap="BaseResultMap">
 	SELECT 
@@ -25,6 +27,46 @@
 	from ANS_CARD
 	<include refid="defaultWhereClause"/>
 		
+	</select>
+	
+	<select id="selectError" parameterType="com.ooops.servant.entity.AnsCard" resultMap="BaseResultMap"> 
+		SELECT 
+		<include refid="defaultSelectClause"/>
+		from ans_card t1
+		where ANS_ANSWER != ANS_MY_ANSWER
+		<if test="id != null">and t.ID = #{id}</if>
+		<if test="ansTitle != null">and t.ANS_TITLE = #{ansTitle}</if>
+		<if test="ansOption != null">and t.ANS_OPTION = #{ansOption}</if>
+		<if test="ansAnswer != null">and t.ANS_ANSWER = #{ansAnswer}</if>
+		<if test="ansMyAnswer != null">and t.ANS_MY_ANSWER = #{ansMyAnswer}</if>
+		<if test="ansDesp != null">and t.ANS_DESP = #{ansDesp}</if>
+		<if test="ansType != null">and t.ANS_TYPE = #{ansType}</if>
+		<if test="topicDictId != null">and t.TOPIC_DICT_ID = #{topicDictId}</if>
+		<if test="topicMainId != null">and t.TOPIC_MAIN_ID = #{topicMainId}</if>
+		<if test="ansId != null">and t.ANS_ID = #{ansId}</if>
+		
+		ORDER BY t1.TOPIC_DICT_ID
+	</select>
+	
+	<select id="getAnalyseByTopicCode" resultType="java.util.Map">
+		SELECT t1.TOPIC_CODE, avg(count) avg FROM (
+			SELECT ui.nick_name, td.TOPIC_CODE, COUNT(0) count FROM ans_card ac
+			LEFT JOIN topic_main tm ON ac.TOPIC_MAIN_ID = tm.ID
+			LEFT JOIN topic_dict td ON ac.TOPIC_DICT_ID = td.ID
+			LEFT JOIN users_info ui ON tm.TEST_CREATOR_ID = ui.id
+			WHERE ANS_ANSWER != ANS_MY_ANSWER
+			GROUP BY tm.TEST_CREATOR_ID, td.TOPIC_CODE
+		) t1
+		GROUP BY t1.TOPIC_CODE
+	</select>
+	
+	<select id="getAnalyse" resultType="java.util.Map">
+		SELECT ui.nick_name, td.TOPIC_CODE, COUNT(0) count FROM ans_card ac
+		LEFT JOIN topic_main tm ON ac.TOPIC_MAIN_ID = tm.ID
+		LEFT JOIN topic_dict td ON ac.TOPIC_DICT_ID = td.ID
+		LEFT JOIN users_info ui ON tm.TEST_CREATOR_ID = ui.id
+		WHERE ANS_ANSWER != ANS_MY_ANSWER
+		GROUP BY tm.TEST_CREATOR_ID, td.TOPIC_CODE
 	</select>
 	
 	<sql id="defaultWhereClause">

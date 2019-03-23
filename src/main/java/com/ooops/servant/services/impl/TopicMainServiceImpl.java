@@ -58,8 +58,11 @@ public class TopicMainServiceImpl extends BaseServiceImpl<TopicMain, TopicMainMa
 		mapper.insertSelective(main);
 		
 		List<AnsCard> ansCards = new ArrayList<AnsCard>();
+		int i = 0;
 		for(TopicDetail d: detail){
 			AnsCard ansCard = getAnsCard(main, d);
+			ansCard.setAnsIndex(i + "");
+			i++;
 			ansCards.add(ansCard);
 			ansCardService.insertSelective(ansCard);
 		}

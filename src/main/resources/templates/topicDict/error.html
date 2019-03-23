@@ -18,6 +18,11 @@
 		<script src="/js/jquery-3.3.1.min.js"></script>
 		<script src="/js/util.js"></script>
 		<script src="/js/index.js"></script>
+		<style>
+			.tpl-content-wrapper .ooops-ans-card:FIRST-CHILD{
+				clear: both
+			}
+		</style>
 	</head>
 
 	<body data-type="index" class="theme-white" style="">
@@ -28,16 +33,6 @@
 				
 			</div>
 			<div class="tpl-content-wrapper">
-				<div class="am-panel am-panel-default topic-main">
-				    <input type="hidden" name="id" value="">
-				    <input type="hidden" name="testTitle" value="">
-				    <input type="hidden" name="testType" value="">
-				    <input type="hidden" name="creatrTime" value="">
-				    <div class="am-panel-bd topic-main-header">
-				    	<span class='topic-title ooops-ellipsis'></span>
-				    	<span class='ooops-date-time'></span>
-				    </div>
-				</div>
 			</div>
 		</div>
 		<script>
@@ -45,20 +40,6 @@
 			$("#left-sidebar").load("/html/nav.html?v=" + new Date().getTime());
 		</script>
 		<script>
-			var href = window.location.href;
-			var param = href.split("?")[1];
-			var id = "";
-			if(!isNull(param)){
-				var params = param.split("&");
-				$(params).each(function(i, item){
-					var key = item.split("=")[0];
-					var value = item.split("=")[1];
-					if(key == "id"){
-						id = value;
-					}
-				});
-			}
-			
 			function getClassName(value, answer, myAnswer){
 				if(value == answer){
 					return "success";
@@ -71,25 +52,11 @@
 			$(function(){
 				var progress = $.AMUI.progress;
 				progress.start();
-				var url = '/topicMain/getTopicMainById.do?id=' + id;
+				var url = '/ansCard/error.do';
 				$.ajax({
 					url: url,
 					success:function(ajax){
-						var title = ajax.testTitle;
-						var id = ajax.id;
-						var creatrTime = ajax.creatrTime;
-						var type = ajax.testType;
-						var detail = ajax.detail;
-						
-						$(".topic-main input[name=id]").val(id);
-						$(".topic-main input[name=testTitle]").val(title);
-						$(".topic-main input[name=creatrTime]").val(creatrTime);
-						$(".topic-main input[name=testType]").val(type);
-					
-						$(".topic-title").text(title);
-						$(".ooops-date-time").text(creatrTime);
-						
-						$(detail).each(function(i, item){
+						$(ajax).each(function(i, item){
 							var html = '<div class="am-panel am-panel-default ooops-ans-card">' + 
 								'<input type="hidden" name="id" value="{{id}}">' +
 							  	'<div class="am-panel-hd ooops-ques-title">' + 

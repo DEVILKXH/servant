@@ -16,12 +16,27 @@ import com.ooops.servant.services.AnsCardService;
 import com.ooops.servant.services.TopicMainService;
 import com.ooops.servant.vo.TopicMainVo;
 
+import tk.mybatis.mapper.entity.Example;
+
 @Controller
 @RequestMapping(value="/topicMain")
 public class TopicMainController extends BaseController<TopicMain, TopicMainService> {
 
 	@Autowired
 	private AnsCardService ansCardService;
+	
+	@RequestMapping(value = "/history.do")
+	@ResponseBody
+	public List<TopicMain> getHistory(){
+		Example example = new Example(TopicMain.class);
+		example.setOrderByClause("CREATR_TIME DESC");
+		return service.selectByExample(example);
+	}
+	
+	@RequestMapping(value = "/history")
+	public String history(){
+		return "topicMain/history";
+	}
 	
 	@RequestMapping(value = "/getTopicMain.do")
 	@ResponseBody
@@ -36,9 +51,10 @@ public class TopicMainController extends BaseController<TopicMain, TopicMainServ
 		vo.setTestTitle(main.getTestTitle());
 		vo.setTestType(main.getTestType());
 		vo.setCreatrTime(main.getCreatrTime());
-		AnsCard ansCard = new AnsCard();
-		ansCard.setTopicMainId(vo.getId());
-		List<AnsCard> detail = ansCardService.select(ansCard);
+		Example example = new Example(AnsCard.class);
+		example.createCriteria().andEqualTo("topicMainId", vo.getId());
+		example.setOrderByClause("ANS_INDEX ASC");
+		List<AnsCard> detail = ansCardService.selectByExample(example);
 		vo.setDetail(detail);
 		return vo;
 	}
@@ -57,5 +73,10 @@ public class TopicMainController extends BaseController<TopicMain, TopicMainServ
 	@RequestMapping(value = "/check")
 	public String getTopicMainCheck(){
 		return "topicMain/check";
+	}
+	
+	@RequestMapping(value = "/edit")
+	public String getTopicMainEdit(){
+		return "topicMain/edit";
 	}
 }

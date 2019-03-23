@@ -36,6 +36,7 @@
 				    <div class="am-panel-bd topic-main-header">
 				    	<span class='topic-title ooops-ellipsis'></span>
 				    	<span class='ooops-date-time'></span>
+						<button type="button" class="am-btn am-btn-primary ooops-submit">提交</button>
 				    </div>
 				</div>
 			</div>
@@ -59,14 +60,31 @@
 				});
 			}
 			
-			function getClassName(value, answer, myAnswer){
-				if(value == answer){
-					return "success";
-				}
-				if(value == myAnswer){
-					return "error";
-				}
-			}
+			$(function(){
+				$(".ooops-submit").click(function(){
+					var id = $(".topic-main input[name=id]").val();
+					var detail = [];
+					$(".ooops-ans-card").each(function(i, item){
+						var id = $(item).find("input[name=id]").val();
+						var value = $("input[name="+ id +"]:checked").val();
+						if(!isNull(value)){
+							var data = {
+								id: id,
+								ansMyAnswer: value
+							}
+							detail.push(data);
+						}
+					});
+				
+					$post({
+						url: '/topicMain/checkTopicMain.do',
+						data: {id: id, detail: detail},
+						callback: function(ajax){
+							window.location.href = "/topicMain/check?id=" + id
+						}
+					});
+				});
+			});
 			
 			$(function(){
 				var progress = $.AMUI.progress;
@@ -95,8 +113,11 @@
 							  	'<div class="am-panel-hd ooops-ques-title">' + 
 							  		'<span>{{title}}</span>' + 
 							  	'</div>' + 
-							  	'<div class="am-panel-bd ans-answer-card">' + 
+							  	'<div class="am-panel-bd">' + 
 							  	'{{texts}}' +
+							  	'</div>' + 
+							  	'<div class="am-panel-foot">' +
+							  		'{{values}}'+ 
 							  	'</div>' + 
 							'</div>';
 							
@@ -104,18 +125,18 @@
 							var ansOption = item.ansOption;
 							var ansOptions = ansOption.split("@");
 							var texts = "";
-							var ansMyAnswer = item.ansMyAnswer;
-							var ansAnswer = item.ansAnswer;
+							var values = "";
 							var dId = item.id;
 							$(ansOptions).each(function(j, jtem){
 								var text = jtem.split("/")[1];
 								var value = jtem.split("/")[0];
-								var classname = getClassName(value, ansAnswer, ansMyAnswer);
-								texts += ("<p class="+ classname +"><span>"+ value +".</span>"+ text +"</p>");
+								texts += ("<p><span>"+ value +".</span>"+ text +"</p>");
+								values += ("<label><input type=\"radio\" name=\""+ dId +"\" value=\""+ value +"\">"+ value +"</label>");
 							});
 							
 							var myHtml = html.replace(/{{title}}/, title);
 							myHtml = myHtml.replace(/{{texts}}/, texts);
+							myHtml = myHtml.replace(/{{values}}/, values);
 							myHtml = myHtml.replace(/{{id}}/, dId);
 							
 							$(".tpl-content-wrapper").append(myHtml);

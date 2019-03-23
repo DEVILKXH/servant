@@ -1,0 +1,110 @@
+<html lang="en" class="js cssanimations">
+
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<title>Amaze UI Admin index Examples</title>
+		<meta name="description" content="这是一个 index 页面">
+		<meta name="keywords" content="index">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="renderer" content="webkit">
+		<meta http-equiv="Cache-Control" content="no-siteapp">
+		<link rel="icon" type="image/png" href="assets/i/favicon.png">
+		<link rel="apple-touch-icon-precomposed" href="assets/i/app-icon72x72@2x.png">
+		<meta name="apple-mobile-web-app-title" content="Amaze UI">
+		<link rel="stylesheet" href="/css/amazeui.min.css">
+		<link rel="stylesheet" href="/css/app.css">
+		<link rel="stylesheet" href="/css/index.css">
+		<script src="/js/jquery-3.3.1.min.js"></script>
+		<script src="/js/util.js"></script>
+		<script src="/js/index.js"></script>
+	</head>
+
+	<body data-type="index" class="theme-white" style="">
+		<div class="am-g tpl-g">
+			<header id="header">
+			</header>
+			<div class="left-sidebar" id="left-sidebar">
+				
+			</div>
+			<div class="tpl-content-wrapper">
+				<table class="am-table am-table-bordered ooops-theme-white-bg ooops-data-list">
+					<tr>
+						<td align="center" valign="middle">序号</td>
+						<td align="center" valign="middle">标题</td>
+						<td align="center" valign="middle">创建时间</td>
+						<td align="center" valign="middle">提交时间</td>
+						<td align="center" valign="middle">类型</td>
+						<td align="center" valign="middle">操作</td>
+					</tr>
+				</table>
+			</div>
+		</div>
+		<script>
+			$("#header").load("/html/header.html?v=" + new Date().getTime());
+			$("#left-sidebar").load("/html/nav.html?v=" + new Date().getTime());
+		</script>
+		<script>
+			$(function(){
+				
+			});
+			
+			function view(id){
+				window.location.href = "/topicMain/check?id=" + id;
+			}
+			
+			function edit(id){
+				window.location.href = "/topicMain/edit?id=" + id;
+			}
+			
+			$(function(){
+				var progress = $.AMUI.progress;
+				progress.start();
+				var url = '/topicMain/history.do';
+				$.ajax({
+					url: url,
+					success:function(ajax){
+						if(ajax.length == 0){
+							var html = "<tr><td align='center' valign='middle' colspan='6'>没有数据</td></tr>";
+							$(".ooops-data-list").append(html);
+							$(".ooops-data-list").show();
+							progress.done();
+							return ;
+						}
+						var html = '<tr>' +
+							'<td align="center" valign="middle">{{index}}</td>' +
+							'<td align="center" valign="middle">{{testTitle}}</td>' +
+							'<td align="center" valign="middle">{{creatrTime}}</td>' +
+							'<td align="center" valign="middle">{{updateTime}}</td>' +
+							'<td align="center" valign="middle">{{testType}}</td>' +
+							'<td align="center" valign="middle">'+
+							'<button type="button" class="am-btn am-btn-primary ooops-radius" onclick="{{method}}(\'{{id}}\')">{{viewText}}</button>'+
+							'</td>' +
+						'</tr>';
+						$(ajax).each(function (i, item){
+							var myHtml = html.replace(/{{index}}/, i + 1);
+							myHtml = myHtml.replace(/{{testTitle}}/, item.testTitle);
+							myHtml = myHtml.replace(/{{creatrTime}}/, item.creatrTime);
+							myHtml = myHtml.replace(/{{updateTime}}/, item.updateTime || "");
+							myHtml = myHtml.replace(/{{testType}}/, TYPE[item.testType] || "");
+							myHtml = myHtml.replace(/{{id}}/, item.id);
+							if(isNull(item.updateTime)){
+								myHtml = myHtml.replace(/{{method}}/, "edit");
+								myHtml = myHtml.replace(/{{viewText}}/, "编辑");
+							}else{
+								myHtml = myHtml.replace(/{{method}}/, "view");
+								myHtml = myHtml.replace(/{{viewText}}/, "查看");
+							}
+							$(".ooops-data-list").append(myHtml);
+						});
+						$(".ooops-data-list").show();
+						progress.done();
+					}
+				});
+			});
+		</script>
+		<script src="/js/amazeui.min.js"></script>
+		<script src="/js/app.js"></script>
+	</body>
+
+</html>

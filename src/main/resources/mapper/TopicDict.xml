@@ -12,23 +12,24 @@
 	</resultMap>
 	
 	<sql id="defaultSelectClause">
-	t1.ID as id,	t1.TOPIC_CODE as topicCode,	t1.TOPIC_NAME as topicName,	t1.TOPIC_STATUS as topicStatus,	t1.CREATE_TIME as createTime	</sql>
+	t1.ID,t1.TOPIC_CODE,t1.TOPIC_NAME,t1.TOPIC_STATUS,t1.CREATE_TIME
+	</sql>
 	
 	<select id="selectList" parameterType="com.ooops.servant.entity.TopicDict" resultMap="BaseResultMap">
 	SELECT 
 		<include refid="defaultSelectClause"/>
-	from TOPIC_DICT
+	from topic_dict t1
 	<include refid="defaultWhereClause"/>
 		
 	</select>
 	
 	<sql id="defaultWhereClause">
 		<trim prefix="where" prefixOverrides="and|or">
-		<if test="id != null">and t.ID = #{id}</if>
-		<if test="topicCode != null">and t.TOPIC_CODE = #{topicCode}</if>
-		<if test="topicName != null">and t.TOPIC_NAME = #{topicName}</if>
-		<if test="topicStatus != null">and t.TOPIC_STATUS = #{topicStatus}</if>
-		<if test="createTime != null">and t.CREATE_TIME = #{createTime}</if>
+			<if test="id != null">and t.ID = #{id}</if>
+			<if test="topicCode != null">and t.TOPIC_CODE = #{topicCode}</if>
+			<if test="topicName != null">and t.TOPIC_NAME = #{topicName}</if>
+			<if test="topicStatus != null">and t.TOPIC_STATUS = #{topicStatus}</if>
+			<if test="createTime != null">and t.CREATE_TIME = #{createTime}</if>
 		</trim>
 	</sql>
 	

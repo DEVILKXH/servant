@@ -1,7 +1,6 @@
 package com.ooops.servant.controller;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.core.extend.base.controller.BaseController;
@@ -13,8 +12,7 @@ import com.ooops.servant.services.TopicDictService;
 public class TopicDictController extends BaseController<TopicDict, TopicDictService> {
 
 	@RequestMapping(value="/index")
-	public String index(String topicCode, Model model){
-		model.addAttribute("topicCode", topicCode);
+	public String index(){
 		return "topicDict/index";
 	}
 }

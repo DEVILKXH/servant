@@ -90,3 +90,46 @@
 	]
 }
 ```
+
+* 练习历史
+- url: /ancCard/history.do
+- 方式: GET
+- 参数: 
+- 返回值:
+```
+{
+	id: "", 
+	testTitle: "",
+	creatrTime: "",
+	testCreatorId: "",
+	testTitle: "",
+	testType: "",
+	updateTime: "没有这个时间则为没有交卷"
+}
+```
+
+* 获取试卷内容
+- url: /topicMain/getTopicMainById.do
+- 方式: POST
+- 参数: 
+```
+{id: id}
+```
+- 返回值:
+```
+{
+	id: '主表id',
+	testTitle: '考试标题',
+	testType: '试卷类型', 
+	creatrTime: '答卷时间',
+	detail: [
+		{
+			id: '明细表id',
+			ansTitle: '明细表标题',
+			ansOption: '选项',
+			ansAnswer: '答案',
+			topicMainId: '主表id'
+		}
+	]
+}
+```

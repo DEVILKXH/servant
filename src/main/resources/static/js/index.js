@@ -6,6 +6,14 @@ var options = {
 	3: 'D', 4: 'E', 5: 'F', 
 	6: 'G', 7: 'H', 8: 'I', 9: 'J'
 }
+
+var TYPE = {
+	'CSPD': '常识判断',
+	'YYLJYD': '言语理解与表达',
+	'SLGC': '数量关系',
+	'PDTL': '常识判断',
+	'ZLFX': '资料分析'
+}
 $(function(){
 	$(".tpl-content-wrapper").on('click', '.am-panel-add-option', function(){
 		var $this = $(this);
