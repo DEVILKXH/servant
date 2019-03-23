@@ -8,7 +8,7 @@ import com.core.extend.base.service.BaseService;
 
 public interface TopicMainService extends BaseService<TopicMain>{
 
-	TopicMainVo getTopicMain(TopicDict topicDict);
+	TopicMainVo getTopicMain(TopicDict topicDict, String creatorId);
 
 	TopicMainVo checkTopicMain(TopicMainVo vo);
 	

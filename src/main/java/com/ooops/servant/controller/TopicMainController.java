@@ -25,8 +25,8 @@ public class TopicMainController extends BaseController<TopicMain, TopicMainServ
 	
 	@RequestMapping(value = "/getTopicMain.do")
 	@ResponseBody
-	public TopicMainVo getTopicMain(TopicDict topicDict){
-		return service.getTopicMain(topicDict);
+	public TopicMainVo getTopicMain(TopicDict topicDict, String creatorId){
+		return service.getTopicMain(topicDict, creatorId);
 	}
 	
 	@RequestMapping(value = "/getTopicMainById.do")
@@ -51,11 +51,11 @@ public class TopicMainController extends BaseController<TopicMain, TopicMainServ
 	
 	@RequestMapping(value = "/getTopicMain")
 	public String getTopicMain(){
-		return "/topicMain/index";
+		return "topicMain/index";
 	}
 	
 	@RequestMapping(value = "/check")
 	public String getTopicMainCheck(){
-		return "/topicMain/check";
+		return "topicMain/check";
 	}
 }

@@ -36,7 +36,7 @@ public class TopicMainServiceImpl extends BaseServiceImpl<TopicMain, TopicMainMa
 	private AnsCardService ansCardService;
 	
 	@Override
-	public TopicMainVo getTopicMain(TopicDict topicDict) {
+	public TopicMainVo getTopicMain(TopicDict topicDict, String creatorId) {
 //		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		TopicDetail topicDetail = new TopicDetail();
 		int size = 8;
@@ -53,6 +53,7 @@ public class TopicMainServiceImpl extends BaseServiceImpl<TopicMain, TopicMainMa
 		main.setId(UUID.randomUUID().toString());
 		main.setTestTitle(title);
 		main.setCreatrTime(new Date());
+		main.setTestCreatorId(creatorId);
 		
 		mapper.insertSelective(main);
 		
