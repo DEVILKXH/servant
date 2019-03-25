@@ -16,6 +16,8 @@
 		<link rel="stylesheet" href="/css/app.css">
 		<link rel="stylesheet" href="/css/index.css">
 		<script src="/js/jquery-3.3.1.min.js"></script>
+		<script src="/js/util.js"></script>
+		<script src="/js/echarts.min.js"></script>
 	</head>
 
 	<body data-type="index" class="theme-white" style="">
@@ -28,20 +30,20 @@
 			<div class="tpl-content-wrapper">
 				<div class="am-tabs" data-am-tabs>
 					<ul class="am-tabs-nav am-nav am-nav-tabs clear-both">
-				    	<li class="am-active"><a href="#tab1">恣意</a></li>
-				    	<li><a href="#tab2">等候</a></li>
-				    	<li><a href="#tab3">流浪</a></li>
+				    	<li class="am-active"><a href="#tab1">平均答题数</a></li>
+				    	<li><a href="#tab2">个人答对数</a></li>
+				    	<li><a href="#tab3">个人答错数</a></li>
 				  	</ul>
 				
 				  	<div class="am-tabs-bd">
 				    	<div class="am-tab-panel am-fade ooops-echart am-in am-active" id="tab1">
-				    		1
+				    		<div class="ooops-echart" id="myEchart1"></div>
 				    	</div>
 				    	<div class="am-tab-panel am-fade ooops-echart" id="tab2">
-				    		2
+				    		<div class="ooops-echart" id="myEchart2"></div>
 				    	</div>
 				    	<div class="am-tab-panel am-fade ooops-echart" id="tab3">
-				    		3
+				    		<div class="ooops-echart" id="myEchart3"></div>
 				    	</div>
 				  	</div>
 				</div>
@@ -50,6 +52,75 @@
 		<script>
 			$("#header").load("/html/header.html?v=" + new Date().getTime());
 			$("#left-sidebar").load("/html/nav.html?v=" + new Date().getTime());
+		</script>
+		<script type="text/javascript">
+			$(function(){
+				var myChart1 = echarts.init(document.getElementById('myEchart1'));
+				var myChart2 = echarts.init(document.getElementById('myEchart2'));
+				var myChart3 = echarts.init(document.getElementById('myEchart3'));
+			
+				var option = {
+				    legend: {},
+				    tooltip: {},
+				    dataset: {
+				        source: []
+				    },
+				    xAxis: {type: 'category'},
+				    yAxis: {},
+				    series: [
+				        {type: 'bar'},
+				        {type: 'bar'}
+				    ]
+				};
+				
+				var option2 = {
+				    legend: {},
+				    tooltip: {},
+				    dataset: {
+				        source: []
+				    },
+				    xAxis: {type: 'category'},
+				    yAxis: {},
+				    series: [
+				        			        
+				    ]
+				};
+				
+				$.ajax({
+					url: '/ansCard/getAnalyseByTopicCode.do',
+					success: function(ajax){
+						init(option, ajax, myChart1);
+					}
+				});
+				
+				$.ajax({
+					url: '/ansCard/getAnalyse.do?answer=true',
+					success: function(ajax){
+						option2.series = [];
+						for(var i = 0; i < ajax[0].length - 1; i++){
+							option2.series.push({type: 'bar'});
+						}
+						init(option2, ajax, myChart2);
+					}
+				});
+				
+				$.ajax({
+					url: '/ansCard/getAnalyse.do?answer=false',
+					success: function(ajax){
+						option2.series = [];
+						for(var i = 0; i < ajax[0].length - 1; i++){
+							option2.series.push({type: 'bar'});
+						}
+						init(option2, ajax, myChart3);
+					}
+				});
+				
+				function init(option, ajax, myChart){
+					option.dataset.source = ajax;
+					myChart.setOption(option);
+				}
+			});
+			
 		</script>
 		<script src="/js/amazeui.min.js"></script>
 		<script src="/js/app.js"></script>
