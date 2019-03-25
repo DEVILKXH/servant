@@ -9,6 +9,10 @@ spring:
         date-format: yyyy-MM-dd HH:mm:ss
         time-zone: GMT+8
         default-property-inclusion: non_null
+    # 上传文件总的最大值
+    servlet:
+        multipart.max-request-size: 10MB
+        multipart.max-file-size: 10MB
     datasource:
         name: test 
         url: jdbc:mysql://39.108.12.197:3306/servant?useUnicode=true&characterEncoding=UTF8
@@ -44,4 +48,6 @@ server:
     session:
         timeout: 43200
     
-    
+upload:
+#    path: D:/fileRoot/
+    path: /home/devilkxh/files

@@ -1,6 +1,7 @@
 package com.ooops.servant.services.impl;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
@@ -18,6 +19,16 @@ public class AnsCardServiceImpl extends BaseServiceImpl<AnsCard, AnsCardMapper> 
 	@Override
 	public List<TopicDict> getError(AnsCard ansCard) {
 		return mapper.selectError(ansCard);
+	}
+
+	@Override
+	public List<Map<String, String>> getAnalyseByTopicCode(String answer) {
+		return mapper.getAnalyseByTopicCode(answer);
+	}
+
+	@Override
+	public List<Map<String, String>> getAnalyse(String answer) {
+		return mapper.getAnalyse(answer);
 	}
 
 }

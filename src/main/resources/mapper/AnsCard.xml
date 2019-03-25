@@ -49,23 +49,33 @@
 	</select>
 	
 	<select id="getAnalyseByTopicCode" resultType="java.util.Map">
-		SELECT t1.TOPIC_CODE, avg(count) avg FROM (
-			SELECT ui.nick_name, td.TOPIC_CODE, COUNT(0) count FROM ans_card ac
+		SELECT t1.TOPIC_NAME, avg(count) avg FROM (
+			SELECT ui.nick_name, td.TOPIC_NAME, COUNT(0) count FROM ans_card ac
 			LEFT JOIN topic_main tm ON ac.TOPIC_MAIN_ID = tm.ID
 			LEFT JOIN topic_dict td ON ac.TOPIC_DICT_ID = td.ID
 			LEFT JOIN users_info ui ON tm.TEST_CREATOR_ID = ui.id
-			WHERE ANS_ANSWER != ANS_MY_ANSWER
+			<if test="answer == 'true'">
+				WHERE ANS_ANSWER = ANS_MY_ANSWER
+				</if>
+				<if test="answer != 'true'">
+				WHERE ANS_ANSWER != ANS_MY_ANSWER
+				</if>
 			GROUP BY tm.TEST_CREATOR_ID, td.TOPIC_CODE
 		) t1
-		GROUP BY t1.TOPIC_CODE
+		GROUP BY t1.TOPIC_NAME
 	</select>
 	
 	<select id="getAnalyse" resultType="java.util.Map">
-		SELECT ui.nick_name, td.TOPIC_CODE, COUNT(0) count FROM ans_card ac
+		SELECT ui.nick_name, td.TOPIC_NAME, COUNT(0) count FROM ans_card ac
 		LEFT JOIN topic_main tm ON ac.TOPIC_MAIN_ID = tm.ID
 		LEFT JOIN topic_dict td ON ac.TOPIC_DICT_ID = td.ID
 		LEFT JOIN users_info ui ON tm.TEST_CREATOR_ID = ui.id
+		<if test="answer == 'true'">
+		WHERE ANS_ANSWER = ANS_MY_ANSWER
+		</if>
+		<if test="answer != 'true'">
 		WHERE ANS_ANSWER != ANS_MY_ANSWER
+		</if>
 		GROUP BY tm.TEST_CREATOR_ID, td.TOPIC_CODE
 	</select>
 	

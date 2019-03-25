@@ -133,3 +133,30 @@
 	]
 }
 ```
+
+* 获取文件列表
+- url: /fileInfo/getFileInfo.do
+- 方式: GET
+- 参数:
+```
+{
+	fileName: '',
+	fileType: ''
+}
+```
+- 返回值:
+```
+{
+	id: '',
+	fileName: '',
+	fileSize: '',
+	filePath: '',
+	fileType: '',
+	createTime: ''
+}
+```
+
+* 文件下载
+- url: /fileInfo/download.do
+- 方式: GET
+- 参数: id=id

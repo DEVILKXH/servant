@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ooops.servant.mapper.FileInfoMapper">
+	<resultMap type="com.ooops.servant.entity.FileInfo" id="BaseResultMap">
+		<result column="ID" property="id"/>
+		<result column="FILE_NAME" property="fileName"/>
+		<result column="FILE_SIZE" property="fileSize"/>
+		<result column="FILE_PATH" property="filePath"/>
+		<result column="FILE_TYPE" property="fileType"/>
+		<result column="CREATE_TIME" property="createTime"/>
+		<result column="PARENT_FILE_ID" property="parentFileId"/>
+	</resultMap>
+	
+	<sql id="defaultSelectClause">
+	t1.ID,t1.FILE_NAME,t1.FILE_SIZE,t1.FILE_PATH,t1.FILE_TYPE,t1.CREATE_TIME, PARENT_FILE_ID
+	</sql>
+	
+	<select id="selectList" parameterType="com.ooops.servant.entity.FileInfo" resultMap="BaseResultMap">
+	SELECT 
+		<include refid="defaultSelectClause"/>
+	from file_info
+	<include refid="defaultWhereClause"/>
+		
+	</select>
+	
+	<sql id="defaultWhereClause">
+		<trim prefix="where" prefixOverrides="and|or">
+		<if test="id != null">and t.ID = #{id}</if>
+		<if test="fileName != null">and t.FILE_NAME = #{fileName}</if>
+		<if test="fileSize != null">and t.FILE_SIZE = #{fileSize}</if>
+		<if test="filePath != null">and t.FILE_PATH = #{filePath}</if>
+		<if test="fileType != null">and t.FILE_TYPE = #{fileType}</if>
+		<if test="createTime != null">and t.CREATE_TIME = #{createTime}</if>
+		<if test="parentFileId != null">and t.PARENT_FILE_ID = #{parentFileId}</if>
+		</trim>
+	</sql>
+	
+</mapper>   
