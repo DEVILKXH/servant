@@ -14,7 +14,7 @@
 	<div class="am-fr tpl-header-navbar">
 		<ul>
 			<li class="am-text-sm tpl-header-navbar-welcome">
-				<a href="javascript:;">欢迎你, <span>Amaze UI</span> </a>
+				<a href="javascript:;">欢迎你, <span class="nickName"></span> </a>
 			</li>
 			<!--<li class="am-dropdown tpl-dropdown" data-am-dropdown="">
 				<a href="javascript:;" class="am-dropdown-toggle tpl-dropdown-toggle" data-am-dropdown-toggle="">
@@ -112,11 +112,14 @@
 				</ul>
 			</li>-->
 			<li class="am-text-sm">
-				<a href="javascript:;">
+				<a href="javascript:;" class="logout">
 					<span class="am-icon-sign-out"></span> 退出
 				</a>
 			</li>
 		</ul>
 	</div>
 </div>
-
+<script type="text/javascript">
+	var user = getCookie("user");
+	$(".nickName").text(user);
+</script>

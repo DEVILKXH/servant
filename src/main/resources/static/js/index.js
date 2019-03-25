@@ -1,6 +1,7 @@
 /**
  * 
  */
+
 var options = {
 	0: 'A', 1: 'B', 2: 'C', 
 	3: 'D', 4: 'E', 5: 'F', 
@@ -15,6 +16,12 @@ var TYPE = {
 	'ZLFX': '资料分析'
 }
 $(function(){
+	$(".logout").click(function(){
+		removeCookie("user");
+		removeCookie("id");
+		window.location.href = "/login"
+	});
+	
 	$(".tpl-content-wrapper").on('click', '.am-panel-add-option', function(){
 		var $this = $(this);
 		var $body = $this.closest(".ooops-ques-list").find(".am-panel-bd");
@@ -63,3 +70,8 @@ $(function(){
 		$(html).insertBefore($(this))
 	});
 });
+
+var user = getCookie("user");
+if(isNull(user)){
+	window.location.href = "/login";
+}

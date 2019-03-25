@@ -29,8 +29,9 @@
 						url: '/doLogin',
 						data: data,
 						callback: function(response){
-							console.log(response);
 							if(response.status = 200){
+								setCookie("user", response.object.nickName);
+								setCookie("id", response.object.id);
 								window.location.href = "/index"
 							}
 						}
