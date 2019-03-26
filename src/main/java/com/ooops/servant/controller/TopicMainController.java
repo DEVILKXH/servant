@@ -25,6 +25,10 @@ public class TopicMainController extends BaseController<TopicMain, TopicMainServ
 	@Autowired
 	private AnsCardService ansCardService;
 	
+	/**
+	 * 获取练习历史数据
+	 * @return
+	 */
 	@RequestMapping(value = "/history.do")
 	@ResponseBody
 	public List<TopicMain> getHistory(){
@@ -33,17 +37,32 @@ public class TopicMainController extends BaseController<TopicMain, TopicMainServ
 		return service.selectByExample(example);
 	}
 	
+	/**
+	 * 获得练习历史数据
+	 * @return
+	 */
 	@RequestMapping(value = "/history")
 	public String history(){
 		return "topicMain/history";
 	}
 	
+	/**
+	 * 随机组卷
+	 * @param topicDict
+	 * @param creatorId
+	 * @return
+	 */
 	@RequestMapping(value = "/getTopicMain.do")
 	@ResponseBody
 	public TopicMainVo getTopicMain(TopicDict topicDict, String creatorId){
 		return service.getTopicMain(topicDict, creatorId);
 	}
 	
+	/**
+	 * 获取试卷内容
+	 * @param vo
+	 * @return
+	 */
 	@RequestMapping(value = "/getTopicMainById.do")
 	@ResponseBody
 	public TopicMainVo getTopicMain(TopicMainVo vo){
@@ -59,22 +78,39 @@ public class TopicMainController extends BaseController<TopicMain, TopicMainServ
 		return vo;
 	}
 	
+	/**
+	 * 自动改卷
+	 * @param vo
+	 * @return
+	 */
 	@RequestMapping(value = "/checkTopicMain.do")
 	@ResponseBody
 	public TopicMainVo checkTopicMain(@RequestBody TopicMainVo vo){
 		return service.checkTopicMain(vo);
 	}
 	
+	/**
+	 * 自动组卷页面
+	 * @return
+	 */
 	@RequestMapping(value = "/getTopicMain")
 	public String getTopicMain(){
 		return "topicMain/index";
 	}
 	
+	/**
+	 * 自动改卷页面
+	 * @return
+	 */
 	@RequestMapping(value = "/check")
 	public String getTopicMainCheck(){
 		return "topicMain/check";
 	}
 	
+	/**
+	 * 编辑页面
+	 * @return
+	 */
 	@RequestMapping(value = "/edit")
 	public String getTopicMainEdit(){
 		return "topicMain/edit";

@@ -17,22 +17,39 @@ import com.ooops.servant.services.AnsCardService;
 @RequestMapping(value="/ansCard")
 public class AnsCardController extends BaseController<AnsCard, AnsCardService> {
 
+	/**
+	 * 我的错题页面
+	 * @return
+	 */
 	@RequestMapping(value="/error")
 	public String error(){
 		return "topicDict/error";
 	}
 	
+	/**
+	 * 获得我的错题数据
+	 * @param ansCard
+	 * @return
+	 */
 	@RequestMapping(value="/error.do")
 	@ResponseBody
 	public List<TopicDict> getError(AnsCard ansCard){
 		return service.getError(ansCard);
 	}
 	
+	/**
+	 * 统计分析页面
+	 * @return
+	 */
 	@RequestMapping(value="/analyse")
 	public String analyse(){
 		return "topicDict/analyse";
 	}
 	
+	/**
+	 * 获得分类统计数据(平均答题数)
+	 * @return
+	 */
 	@RequestMapping(value="/getAnalyseByTopicCode.do")
 	@ResponseBody
 	public List<List<String>> getAnalyseByTopicCode(){
@@ -95,6 +112,11 @@ public class AnsCardController extends BaseController<AnsCard, AnsCardService> {
 		return list;
 	}
 	
+	/**
+	 * 统计分析(个人平均答题数)
+	 * @param answer
+	 * @return
+	 */
 	@RequestMapping(value="/getAnalyse.do")
 	@ResponseBody
 	List<List<String>> getAnalyse(String answer){

@@ -29,25 +29,46 @@ import com.ooops.servant.services.FileInfoService;
 @RequestMapping(value="/fileInfo")
 public class FileInfoController extends BaseController<FileInfo, FileInfoService> {
 	
+	/**
+	 * 文件上传路径
+	 */
 	@Value("${upload.path}")
 	private String UPLOADPATH;
 	
+	/**
+	 * 文件列表页面
+	 * @return
+	 */
 	@RequestMapping("/index")
 	public String index(){
 		return "fileInfo/index";
 	}
 	
+	/**
+	 * 文件上传页面
+	 * @return
+	 */
 	@RequestMapping("/upload")
 	public String upload(){
 		return "fileInfo/upload";
 	}
 	
+	/**
+	 * 获取文件列表数据
+	 * @param entity
+	 * @return
+	 */
 	@RequestMapping("/getFileInfo.do")
 	@ResponseBody
 	public List<FileInfo> getFileInfo(FileInfo entity){
 		return service.select(entity);
 	}
 	
+	/**
+	 * 上传文件
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping("/uploadFile.do")
 	@SuppressWarnings("unused")
 	public String uploadFile(HttpServletRequest request){
@@ -83,6 +104,9 @@ public class FileInfoController extends BaseController<FileInfo, FileInfoService
 		return "fileInfo/index";
 	}
 	
+	/**
+	 * 删除文件
+	 */
 	@RequestMapping(value = "/delete.do",method={RequestMethod.GET})
 	@ResponseBody
 	public AjaxResult<FileInfo> delete(FileInfo record){
@@ -98,7 +122,12 @@ public class FileInfoController extends BaseController<FileInfo, FileInfoService
 		return ajax;
 	}
 	
-
+	/**
+	 * 下载文件
+	 * @param record
+	 * @param response
+	 * @throws Exception
+	 */
 	@RequestMapping(value = "/download.do",method={RequestMethod.GET})
 	public void download(FileInfo record, HttpServletResponse response) throws Exception{
 		FileInfo fileInfo = service.selectByPrimaryKey(record.getId());

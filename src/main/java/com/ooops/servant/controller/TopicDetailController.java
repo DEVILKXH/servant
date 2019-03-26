@@ -24,24 +24,46 @@ public class TopicDetailController extends BaseController<TopicDetail, TopicDeta
 	@Autowired
 	private TopicDictService topicDictService;
 	
+	/**
+	 * 新增题目页面
+	 * @param topicCode
+	 * @param model
+	 * @return
+	 */
 	@RequestMapping(value="/create")
 	public String create(String topicCode, Model model){
 		model.addAttribute("topicCode", topicCode);
 		return "topicDict/add";
 	}
 	
+	/**
+	 * 题目编辑页面
+	 * @param topicCode
+	 * @param model
+	 * @return
+	 */
 	@RequestMapping(value="/edit")
 	public String edit(String topicCode, Model model){
 		model.addAttribute("topicCode", topicCode);
 		return "topicDict/edit";
 	}
 	
+	/**
+	 * 保存题目
+	 * @param records
+	 * @return
+	 */
 	@RequestMapping(value = "/saveList.do",method={RequestMethod.POST})
 	@ResponseBody
 	public AjaxResult<TopicDetail> insertSelective(@RequestBody List<TopicDetail> records){
 		return service.saveList(records);
 	}
 	
+	/**
+	 * 获取题目数据
+	 * @param record
+	 * @return
+	 */
 	@RequestMapping(value = "/getList.do")
 	@ResponseBody
 	public List<TopicDetail> getList(TopicDict record){

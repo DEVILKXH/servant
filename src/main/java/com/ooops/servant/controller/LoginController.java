@@ -22,11 +22,19 @@ public class LoginController extends BaseController<UsersInfo, UsersInfoService>
 	@Autowired
 	private HttpSession session;
 	
-	@RequestMapping(value = {"/index",""})
+	/**
+	 * 首页
+	 * @return
+	 */
+	@RequestMapping(value = {"/index","/"})
 	public String index() {
 		return Constant.INDEX;
 	}
 	
+	/**
+	 * 登录页
+	 * @return
+	 */
 	@RequestMapping(value = {"/login",""})
 	public String login() {
 		if(session.getAttribute(Constant.USER_KEY) == null){
@@ -36,13 +44,21 @@ public class LoginController extends BaseController<UsersInfo, UsersInfoService>
 		}
 	}
 	
-	
+	/**
+	 * 登出
+	 * @return
+	 */
 	@RequestMapping(value = {"/logout"})
 	public String logout() {
 		session.invalidate();
 		return Constant.LOGIN;
 	}
 	
+	/**
+	 * 学生端登录
+	 * @param user
+	 * @return
+	 */
 	@RequestMapping(value = "/doLogin", method = RequestMethod.POST)
 	@ResponseBody
 	public AjaxResult<UsersInfo> doLogin(@RequestBody UsersInfo user){
@@ -64,6 +80,11 @@ public class LoginController extends BaseController<UsersInfo, UsersInfoService>
 		return ajax;
 	}
 	
+	/**
+	 * 教师端登录
+	 * @param user
+	 * @return
+	 */
 	@RequestMapping(value = "/doLoginByTeacher.do", method = RequestMethod.POST)
 	@ResponseBody
 	public AjaxResult<UsersInfo> doLoginByTeacher(@RequestBody UsersInfo user){
