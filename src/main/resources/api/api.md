@@ -8,7 +8,8 @@
 ```
 {
 	loginName: '',
-	password: ''
+	password: '',
+	type: 'S(学生), T(教师)'
 }
 ```
 - 返回值:

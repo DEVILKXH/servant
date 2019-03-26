@@ -50,6 +50,7 @@ public class LoginController extends BaseController<UsersInfo, UsersInfoService>
 //		user.setId(user.getId().toUpperCase());
 		UsersInfo _user = new UsersInfo();
 		_user.setLoginName(user.getLoginName());
+		_user.setType("T");
 		UsersInfo myUser = service.selectOne(_user);
 		if(null == myUser || !myUser.getPassword().equals(user.getPassword())) {
 			ajax.setStatus("404");
@@ -63,4 +64,24 @@ public class LoginController extends BaseController<UsersInfo, UsersInfoService>
 		return ajax;
 	}
 	
+	@RequestMapping(value = "/doLoginByTeacher.do", method = RequestMethod.POST)
+	@ResponseBody
+	public AjaxResult<UsersInfo> doLoginByTeacher(@RequestBody UsersInfo user){
+		AjaxResult<UsersInfo> ajax = new AjaxResult<>();
+//		user.setId(user.getId().toUpperCase());
+		UsersInfo _user = new UsersInfo();
+		_user.setLoginName(user.getLoginName());
+		_user.setType("T");
+		UsersInfo myUser = service.selectOne(_user);
+		if(null == myUser || !myUser.getPassword().equals(user.getPassword())) {
+			ajax.setStatus("404");
+			ajax.setMessage("账号或密码错误");
+		}else {
+			ajax.setStatus("200");
+			ajax.setMessage("登陆成功");
+			ajax.setObject(myUser);
+			session.setAttribute(Constant.USER_KEY, user.getId());
+		}
+		return ajax;
+	}
 }

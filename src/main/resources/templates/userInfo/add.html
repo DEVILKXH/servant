@@ -1,0 +1,94 @@
+<html lang="en" class="js cssanimations">
+
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<title>Amaze UI Admin index Examples</title>
+		<meta name="description" content="这是一个 index 页面">
+		<meta name="keywords" content="index">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="renderer" content="webkit">
+		<meta http-equiv="Cache-Control" content="no-siteapp">
+		<link rel="icon" type="image/png" href="assets/i/favicon.png">
+		<link rel="apple-touch-icon-precomposed" href="assets/i/app-icon72x72@2x.png">
+		<meta name="apple-mobile-web-app-title" content="Amaze UI">
+		<link rel="stylesheet" href="/css/amazeui.min.css">
+		<link rel="stylesheet" href="/css/app.css">
+		<link rel="stylesheet" href="/css/index.css">
+		<script src="/js/jquery-3.3.1.min.js"></script>
+		<script src="/js/util.js"></script>
+	</head>
+
+	<body data-type="index" class="theme-white" style="">
+		<div class="am-g tpl-g">
+			<header id="header">
+			</header>
+			<div class="left-sidebar" id="left-sidebar">
+				
+			</div>
+			<div class="tpl-content-wrapper">
+				<div class="ooops-ques-list ooops-theme-white-bg clear-both ooops-edit">
+					<button type="button" class="am-btn am-btn-primary ooops-radius" onclick="submitForm()">保存</button>
+				</div>
+				
+				<form class="am-form am-form-horizontal" name="myForm" style="background: white; padding: 16px 0">
+				 	<input type='hidden' name="id" class="form-param"/>
+				 	<input type='hidden' name="type" class="form-param"/>
+				 	<div class="am-form-group">
+				    	<label for="doc-ipt-3" class="am-u-sm-2 am-form-label">登录名</label>
+				    	<div class="am-u-sm-10">
+				      		<input type="text" id="doc-ipt-3" name="loginName" class="form-param am-form-field am-radius" placeholder="输入你的登录名">
+				    	</div>
+				  	</div>
+				  	<div class="am-form-group">
+				    	<label for="doc-ipt-4" class="am-u-sm-2 am-form-label">昵称</label>
+				    	<div class="am-u-sm-10">
+				      		<input type="text" id="doc-ipt-4" name="nickName" class="form-param am-form-field am-radius" placeholder="输入你的昵称">
+				    	</div>
+				  	</div>
+				  	<div class="am-form-group">
+				    	<label for="doc-ipt-5" class="am-u-sm-2 am-form-label">密码</label>
+				    	<div class="am-u-sm-10">
+				      		<input type="password" id="doc-ipt-5" name="password" class="form-param am-form-field am-radius" placeholder="请输入密码">
+				    	</div>
+				  	</div>
+				
+				</form>
+			</div>
+		</div>
+		<script>
+			$("#header").load("/html/header.html?v=" + new Date().getTime());
+			$("#left-sidebar").load("/html/nav.html?v=" + new Date().getTime());
+		</script>
+		<script type="text/javascript">
+			var href = window.location.href;
+			var param = href.split("?")[1];
+			var type = "";
+			if(!isNull(param)){
+				var params = param.split("&");
+				$(params).each(function(i, item){
+					var key = item.split("=")[0];
+					var value = item.split("=")[1];
+					if(key == "type"){
+						type = value;
+					}
+				});
+			}
+			
+			function submitForm(){
+				var data = getData("myForm", "form-param");
+				data["type"] = type;
+				$post({
+					url: '/usersInfo/insertSelective.do',
+					data: data,
+					callback: function(ajax){
+						window.history.go(-1);
+					}
+				})
+			}
+		</script>
+		<script src="/js/amazeui.min.js"></script>
+		<script src="/js/app.js"></script>
+	</body>
+
+</html>

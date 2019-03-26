@@ -23,16 +23,22 @@
 					var password = $("#user-password").val();
 					var data = {
 						loginName: username,
-						password: password
+						password: password,
+						type: 'S'
 					}
+					var progress = $.AMUI.progress;
+					progress.start();
 					$post({
-						url: '/doLogin',
+						url: '/doLoginByTeacher.do',
 						data: data,
 						callback: function(response){
-							if(response.status = 200){
+							if(response.status == 200){
 								setCookie("user", response.object.nickName);
 								setCookie("id", response.object.id);
 								window.location.href = "/index"
+							}else{
+								progress.done();
+								alert(response.message);
 							}
 						}
 					})

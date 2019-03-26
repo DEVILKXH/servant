@@ -46,6 +46,17 @@ function isNull(value){
 	return false;
 }
 
+function getData(formName, className){
+	var data = {};
+	$("form[name="+ formName +"] ." + className).each(function(i, item){
+		var name = $(item).attr("name");
+		var value = $(item).val();
+		if(!isNull(value)){
+			data[name] = value;
+		}
+	});
+	return data;
+}
 
 function $post(options){
 	var url = options.url || ''
