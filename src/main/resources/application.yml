@@ -49,4 +49,4 @@ server:
     
 upload:
 #    path: D:/fileRoot/
-    path: /home/devilkxh/files
+    path: /home/devilkxh/files/
