@@ -93,7 +93,7 @@
 ```
 
 * 练习历史
-- url: /ancCard/history.do
+- url: /topicMain/history.do
 - 方式: GET
 - 参数: 
 - 返回值:
@@ -107,6 +107,29 @@
 	testType: "",
 	updateTime: "没有这个时间则为没有交卷"
 }
+```
+
+* 我的错题
+- url: /ansCard/error.do
+- 方式: POST
+- 参数: 
+```
+{
+	ansId: '创建者id'
+}
+```
+- 返回值:
+```
+[
+	{
+		id: 'id',
+		ansTitle: '明细表标题',
+		ansOption: '选项',
+		ansAnswer: '答案',
+		ansMyAnswer: '我的答案',
+		topicMainId: '主表id'
+	}
+]
 ```
 
 * 获取试卷内容

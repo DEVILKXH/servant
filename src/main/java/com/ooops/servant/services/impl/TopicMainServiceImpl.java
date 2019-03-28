@@ -62,6 +62,7 @@ public class TopicMainServiceImpl extends BaseServiceImpl<TopicMain, TopicMainMa
 		for(TopicDetail d: detail){
 			AnsCard ansCard = getAnsCard(main, d);
 			ansCard.setAnsIndex(i + "");
+			ansCard.setAnsId(creatorId);
 			i++;
 			ansCards.add(ansCard);
 			ansCardService.insertSelective(ansCard);
